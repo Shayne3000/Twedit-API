@@ -23,7 +23,7 @@ router.post('/signup', async (req,res) => {
     // checking whether the username exists
     const { rows } = await db.query('SELECT name FROM users WHERE username = $1',[username])
     if(rows < 1){
-        // the username is free
+        // the username is available
         var pwdsalt = bcrypt.genSaltSync(10)
         var hashedpass = bcrypt.hashSync(password, pwdsalt)
 
@@ -51,10 +51,10 @@ router.post('/signup', async (req,res) => {
             req.status(500).send("Not looking too good. Couldn't create your account")
         }
     }else{
-        // username is already in use
+        // username is not available
         r.success = false
         r.message = "That username is taken"
-        res.status(200).json(r)
+        res.status(400).json(r)
     }
 })
 
@@ -81,7 +81,7 @@ router.post('/login', async (req,res) => {
            r.success = false
            if(results.rows == 0) r.message = "That user doesn't exist."
            else r.message = "Something went wrong back here. Can you try again?"
-           res.status(200).json(r) // these responses can be handled quite better than this
+           res.status(500).json(r) // these responses can be handled quite better than this
         }else{
             // the user does exist
             // check their password authenticity
@@ -108,7 +108,7 @@ router.post('/login', async (req,res) => {
                 // password is incorrect
                 r.success = false;
                 r.message = "Password is incorrect."
-                res.status(200).json(r)
+                res.status(400).json(r)
             }
         }
     })

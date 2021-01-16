@@ -13,11 +13,11 @@ app.use(
 
 app.get('/', (request, response) => {
     response.json({
-        info: 'Tweets, but editable'
+        info: 'TweetBackend Starting...'
     })
 })
 mountRoutes(app)
 
 app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
+    console.log(`TweetBackend running on port ${port}.`)
 })

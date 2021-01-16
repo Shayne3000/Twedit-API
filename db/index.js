@@ -34,6 +34,7 @@ async function tweetEditable(tweet_id){
   // get the current time now
   const time_now = helper.getCurrentTimestamp
   
+  // TODO Remove the time limitation. Future improvement point, keep a list of edits that can be requested by the user later on.
   // remove 60 seconds from time_now...
   // if that value is less than tweet_time. Allow the edit. If not.. then don't
   if((time_now - 60) < tweet_time){
@@ -55,6 +56,6 @@ module.exports = {
     },
     validateAccessToken,
     verifyTweetOwnership,
-    verifyTweetExistance,
+    verifyTweetExistance: verifyTweetExistence,
     tweetEditable
 }

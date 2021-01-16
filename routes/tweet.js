@@ -54,7 +54,7 @@ router.delete('/delete', async (req,res) => {
     } = req.body
 
     // lets check if the tweet exists
-    const tweetExists = await db.verifyTweetExistance(tweet_id)
+    const tweetExists = await db.verifyTweetExistence(tweet_id)
     if(tweetExists){
         const tokenValid = await db.validateAccessToken(id,access_token);
         const tweetValid = await db.verifyTweetOwnership(id,tweet_id)
@@ -104,7 +104,7 @@ router.put('/edit', async (req,res) => {
     } = req.body
 
     // lets check if the tweet exists..
-    const tweetExists = await db.verifyTweetExistance(tweet_id)
+    const tweetExists = await db.verifyTweetExistence(tweet_id)
     if(tweetExists){
         const tokenValid = await db.validateAccessToken(id,access_token);
         const tweetValid = await db.verifyTweetOwnership(id,tweet_id)
@@ -131,12 +131,12 @@ router.put('/edit', async (req,res) => {
                     console.log("WHAT?") // sometimes you just get a little bit confused
                     r.success = false
                     r.message = "Tweet can't be edited"
-                    res.status(200).json(r)
+                    res.status(403).json(r)
                 }
             }else{
                 r.success = false
                 r.message = "That's not your tweet buddy. Can't fool me"
-                res.status(200).json(r)
+                res.status(403).json(r)
             }
 
         }else{

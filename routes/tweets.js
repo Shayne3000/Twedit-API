@@ -30,7 +30,6 @@ router.post('/all', async (req,res) => {
             res.status(200).json(r)
         }else{
             // no tweets
-
             r.success = false
             r.message = "No tweets available yet"
             res.status(500).json(r)
