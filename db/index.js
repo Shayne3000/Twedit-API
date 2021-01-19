@@ -2,10 +2,10 @@ const Pool = require('pg').Pool
 const helper = require('../helper')
 
 const pool = new Pool({
-    user: 'me',
+    user: 'postgres',
     host: 'localhost',
-    database: 'twedit',
-    password: 'password',
+    database: 'tweeterdb',
+    password: 'Alfred3000',
     port: 5432,
 })
 
@@ -44,7 +44,7 @@ async function tweetEditable(tweet_id){
 }
 
 // verify if tweet exists (with ID)(might use UID's later)
-async function verifyTweetExistance(tweet_id){
+async function verifyTweetExistence(tweet_id){
   const { rowCount } = await pool.query("SELECT ID FROM tweets WHERE ID = $1",[tweet_id])
   if(rowCount) return true
   else return false
@@ -56,6 +56,6 @@ module.exports = {
     },
     validateAccessToken,
     verifyTweetOwnership,
-    verifyTweetExistance: verifyTweetExistence,
+    verifyTweetExistence: verifyTweetExistence,
     tweetEditable
 }
